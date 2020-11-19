@@ -54,14 +54,6 @@
 
     <div class="mx-3"/>
 
-    <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="/"
-    >
-      <v-icon>mdi-view-dashboard</v-icon>
-    </v-btn>
 
     <v-menu
       bottom
@@ -70,27 +62,6 @@
       origin="top right"
       transition="scale-transition"
     >
-      <template v-slot:activator="{ attrs, on }">
-        <v-btn
-          class="ml-2"
-          min-width="0"
-          text
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-badge
-            color="red"
-            overlap
-            bordered
-          >
-            <template v-slot:badge>
-              <span>5</span>
-            </template>
-
-            <v-icon>mdi-bell</v-icon>
-          </v-badge>
-        </v-btn>
-      </template>
 
       <v-list
         :tile="false"

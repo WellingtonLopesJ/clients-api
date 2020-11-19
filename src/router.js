@@ -39,7 +39,7 @@ export default new Router({
         {
           name: 'Dashboard',
           path: '',
-          component: () => import('@/views/dashboard/Dashboard'),
+          redirect: '/clientesPage',
           beforeEnter: ifAuthenticated,
         },
         // Pages
@@ -89,13 +89,13 @@ export default new Router({
           beforeEnter: ifAuthenticated,
         },
         {
-          name: 'clientes',
+          name: 'Clientes',
           path: 'clientes',
           component: ClientesAll,
           beforeEnter: ifAuthenticated,
         },
         {
-          name:'clientes.page',
+          name:'Clientes - Paginação',
           path: 'clientesPage',
           component: ClientesPage,
           beforeEnter: ifAuthenticated

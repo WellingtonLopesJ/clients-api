@@ -28,6 +28,7 @@ Vue.config.productionTip = false
 const token = localStorage.getItem('user-token')
 if (token) {
   Axios.defaults.headers.common['Authorization'] = token
+  store.dispatch('USER_REQUEST')
 }
 
 new Vue({
