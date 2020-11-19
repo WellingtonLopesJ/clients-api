@@ -4,7 +4,7 @@ import Axios from "axios";
 
 Vue.use(Vuex)
 
-
+import ClienteDataService from "@/services/ClienteDataService";
 
 export default new Vuex.Store({
   state: {
@@ -13,6 +13,16 @@ export default new Vuex.Store({
     drawer: null,
     token: localStorage.getItem('user-token') || '',
     status: '',
+    inquilino: {},
+    user:{
+      id: 0,
+      email: '',
+      statusComum: '',
+      nome: '',
+      imagem: '',
+      imagem64: '',
+      permissoes: [],
+    }
   },
   mutations: {
     SET_BAR_IMAGE(state, payload) {
@@ -31,6 +41,19 @@ export default new Vuex.Store({
     AUTH_ERROR: (state) => {
       state.status = 'error'
     },
+    SET_USER:(state, response) =>{
+      state.user.email = response.data.email
+      state.user.statusComum = response.data.statusComum
+      state.user.nome = response.data.nome
+      state.user.imagem = response.data.imagem
+      state.user.imagem64 = response.data.imagem64
+      state.user.id = response.data.id
+
+      state.inquilino = response.data.inquilino
+    },
+    SET_PERMISSOES:(state, response) => {
+      state.permissoes = response.data
+    }
   },
   actions: {
     AUTH_REQUEST: ({commit, dispatch}, user) => {
@@ -62,6 +85,23 @@ export default new Vuex.Store({
         delete Axios.defaults.headers.common['Authorization']
         resolve()
       })
+
+    },
+
+    USER_REQUEST: ({commit}) => {
+
+      ClienteDataService.getUser()
+        .then((response)=>{
+          commit('SET_USER', response)
+        })
+        .catch(e => {console.log(e + 'getUser')})
+
+      ClienteDataService.getPermissoes()
+        .then((response)=>{
+          commit('SET_PERMISSOES', response)
+
+        })
+        .catch((e) => console.log(e + 'getPermissoes'))
 
     }
   },

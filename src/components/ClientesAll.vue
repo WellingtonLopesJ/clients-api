@@ -5,6 +5,17 @@
     fluid
     tag="section"
   >
+    <div v-for="cliente in deleted" class="flex justify-center align-center">
+      <base-material-alert
+        color="success"
+        dark
+        dismissible
+        style="max-width: 300px"
+      >
+        Usuário {{cliente.fantasia}} deletado com sucesso
+      </base-material-alert>
+    </div>
+
 
     <base-material-card
       icon="mdi-clipboard-text"
@@ -25,7 +36,14 @@
           :headers="headers"
           :items="clientes"
           :search="search"
-        ></v-data-table>
+          disable-pagination
+          :hide-default-footer="true"
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="editCliente(item.id)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteCliente(item)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
       </v-card>
     </base-material-card>
 
@@ -39,6 +57,7 @@ export default {
 name: "ClientesAll",
   data(){
   return{
+    deleted: [],
     clientes: [],
     headers: [
       {text: 'ID',value: 'id', align: 'start', sortable: 'true'},
@@ -47,6 +66,7 @@ name: "ClientesAll",
       {text: 'Status Comum', value: 'statusComum', sortable: 'false' },
       {text: 'nIm', value: 'nim', sortable: 'false' },
       {text: 'nIe', value: 'nie', sortable: 'false' },
+      { text: "Ações", value: "actions", sortable: false },
     ],
     search: ""
   }
@@ -60,6 +80,21 @@ name: "ClientesAll",
           .catch((e) => {
             console.log(e);
           });
+    },
+
+    editCliente(id) {
+      this.$router.push({ name: "Editar", params: { id: id } });
+    },
+
+    deleteCliente(cliente) {
+      this.deleted.push(cliente)
+      ClienteDataService.delete(cliente.id)
+        .then(() => {
+          this.retrieveClientes();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
   mounted() {

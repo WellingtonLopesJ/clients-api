@@ -108,21 +108,6 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
-        },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
-        },
-        {
           title: 'Clientes',
           icon: 'mdi-clipboard-outline',
           to: '/clientes',
@@ -136,21 +121,6 @@
           title: 'Cadastro',
           icon: 'mdi-account-plus-outline',
           to: '/cadastro',
-        },
-        {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
-        },
-        {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
         },
       ],
     }),
@@ -171,7 +141,7 @@
       profile () {
         return {
           avatar: true,
-          title: this.$t('avatar'),
+          title: this.$store.state.inquilino.fantasia,
         }
       },
     },

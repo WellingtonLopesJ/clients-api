@@ -4,6 +4,16 @@
     fluid
     tag="section"
   >
+    <div v-for="cliente in deleted" class="flex justify-center align-center">
+      <base-material-alert
+        color="success"
+        dark
+        dismissible
+        style="max-width: 300px"
+      >
+        Usuário {{cliente.fantasia}} deletado com sucesso
+      </base-material-alert>
+    </div>
 
     <base-material-card
       icon="mdi-clipboard-text"
@@ -60,7 +70,10 @@
           :hide-default-footer="true"
           :search="search"
       >
-
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-icon small class="mr-2" @click="editCliente(item.id)">mdi-pencil</v-icon>
+          <v-icon small @click="deleteCliente(item)">mdi-delete</v-icon>
+        </template>
       </v-data-table>
 
       <v-pagination
@@ -85,7 +98,7 @@ export default {
     return {
       search: "",
       isSearching: false,
-
+      deleted: [],
       clientes: [],
       page: 1,
       totalPages: 0,
@@ -105,6 +118,7 @@ export default {
         {text: 'Status Comum', value: 'statusComum', sortable: 'false' },
         {text: 'nIm', value: 'nim', sortable: 'false' },
         {text: 'nIe', value: 'nie', sortable: 'false' },
+        { text: "Ações", value: "actions", sortable: false },
       ]
     }
   },
@@ -193,7 +207,22 @@ export default {
     handleDirectionChange(value){
       this.direction = value,
       this.retrieveClientes()
-    }
+    },
+
+    editCliente(id) {
+      this.$router.push({ name: "Editar", params: { id: id } });
+    },
+
+    deleteCliente(cliente) {
+      this.deleted.push(cliente)
+      ClienteDataService.delete(client.id)
+        .then(() => {
+          this.retrieveClientes();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
 
   },
 

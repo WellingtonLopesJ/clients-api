@@ -7,6 +7,7 @@ import Login from "@/components/Login";
 import store from './store'
 import ClientesPage from "@/components/ClientesPage";
 import Cadastro from "@/components/Cadastro";
+import Update from "@/components/Update";
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
@@ -110,7 +111,13 @@ export default new Router({
           path: 'cadastro',
           component: Cadastro,
           beforeEnter: ifAuthenticated
-        }
+        },
+        {
+          name: 'Editar',
+          path: 'clientes/:id/edit',
+          component: Update,
+          beforeEnter: ifAuthenticated
+        },
       ],
     },
   ],
