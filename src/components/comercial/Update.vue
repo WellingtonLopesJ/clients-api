@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import ClienteDataService from "@/services/ClienteDataService";
+import ClienteDataService from "@/services/comercial/ClienteDataService";
 
 export default {
   name: 'Cadastro',

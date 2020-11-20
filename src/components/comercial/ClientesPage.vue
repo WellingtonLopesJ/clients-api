@@ -11,15 +11,35 @@
         dismissible
         style="max-width: 300px"
       >
-        Usuário {{cliente.fantasia}} deletado com sucesso
+        {{$t('usuario')}} {{ $t('deletado_sucesso', {prm: 'aaaa'}) }}
       </base-material-alert>
     </div>
+  <div class="d-flex">
+    <v-btn
+      class="ma-2"
+      color="primary"
+      to="clientes/cadastro"
+
+    >
+      {{$t('novo_cadastro')}}
+      <v-icon
+        right
+        dark
+      >
+        mdi-plus-circle
+      </v-icon>
+    </v-btn>
+  </div>
+
 
     <base-material-card
       icon="mdi-clipboard-text"
-      title="Listagem de clientes"
+      :title="
+      $t('listagem_clientes')"
       class="px-5 py-3"
     >
+
+
     <v-card class="pa-4" tile>
       <v-card-title>
         <v-text-field
@@ -91,7 +111,8 @@
 </template>
 
 <script>
-import ClienteDataService from "@/services/ClienteDataService";
+import i18n from '@/i18n'
+import ClienteDataService from "@/services/comercial/ClienteDataService";
 export default {
   name: "ClientesPage",
   data() {
@@ -214,9 +235,10 @@ export default {
     },
 
     deleteCliente(cliente) {
-      this.deleted.push(cliente)
-      ClienteDataService.delete(client.id)
+
+      ClienteDataService.delete(cliente.id)
         .then(() => {
+          this.deleted.push(cliente)
           this.retrieveClientes();
         })
         .catch((e) => {

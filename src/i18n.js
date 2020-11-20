@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
+import pt from 'vuetify/lib/locale/pt'
 import en from 'vuetify/lib/locale/en'
 
 Vue.use(VueI18n)
@@ -8,12 +9,15 @@ Vue.use(VueI18n)
 const messages = {
   en: {
     ...require('@/locales/en.json'),
-    $vuetify: en,
+  },
+  pt: {
+    ...require('@/locales/pt.json'),
+    $vuetify: pt,
   },
 }
 
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  locale: 'pt',
+  fallbackLocale: 'en',
   messages,
 })

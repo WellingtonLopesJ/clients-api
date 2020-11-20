@@ -14,7 +14,7 @@ const theme = {
 
 export default new Vuetify({
   lang: {
-    t: (key, ...params) => i18n.t(key, params),
+    t: (key, params) => i18n.t(key, params),
   },
   theme: {
     themes: {

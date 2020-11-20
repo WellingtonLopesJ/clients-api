@@ -28,7 +28,7 @@ class ClienteDataService{
   }
 
   getUser(){
-    return Axios.get(`http://localhost:8080/usuarios/1`)
+    return Axios.get(`http://localhost:8080/usuarios/dados_Usuario`)
   }
 
   getPermissoes(){

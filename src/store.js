@@ -4,7 +4,7 @@ import Axios from "axios";
 
 Vue.use(Vuex)
 
-import ClienteDataService from "@/services/ClienteDataService";
+import ClienteDataService from "@/services/comercial/ClienteDataService";
 
 export default new Vuex.Store({
   state: {
@@ -48,6 +48,7 @@ export default new Vuex.Store({
       state.user.imagem = response.data.imagem
       state.user.imagem64 = response.data.imagem64
       state.user.id = response.data.id
+      state.user.perfis = response.data.perfis
 
       state.inquilino = response.data.inquilino
     },
@@ -83,6 +84,7 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         localStorage.removeItem('user-token') // clear your user's token from localstorage
         delete Axios.defaults.headers.common['Authorization']
+        this.$router.push('/login')
         resolve()
       })
 

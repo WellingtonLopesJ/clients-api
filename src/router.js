@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ClientesAll from "@/components/ClientesAll";
-import Login from "@/components/Login";
+import Login from "@/components/comercial/Login";
 
 
 import store from './store'
-import ClientesPage from "@/components/ClientesPage";
-import Cadastro from "@/components/Cadastro";
-import Update from "@/components/Update";
+import ClientesPage from "@/components/comercial/ClientesPage";
+import Cadastro from "@/components/comercial/Cadastro";
+import Update from "@/components/comercial/Update";
+import CadastroUsuario from "@/components/acessos/Usuarios/CadastroUsuario";
+import PerfilUsuario from "@/components/acessos/Usuarios/PerfilUsuario";
+import ListagemUsuarios from "@/components/acessos/Usuarios/ListagemUsuarios";
+import EditarUsuario from "@/components/acessos/Usuarios/EditarUsuario";
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
@@ -37,9 +40,8 @@ export default new Router({
       children: [
         // Dashboard
         {
-          name: 'Dashboard',
           path: '',
-          redirect: '/clientesPage',
+          redirect: '/clientes',
           beforeEnter: ifAuthenticated,
         },
         // Pages
@@ -89,16 +91,10 @@ export default new Router({
           beforeEnter: ifAuthenticated,
         },
         {
-          name: 'Clientes',
+          name: 'clientes',
           path: 'clientes',
-          component: ClientesAll,
-          beforeEnter: ifAuthenticated,
-        },
-        {
-          name:'Clientes - Paginação',
-          path: 'clientesPage',
           component: ClientesPage,
-          beforeEnter: ifAuthenticated
+          beforeEnter: ifAuthenticated,
         },
         {
           name: 'login',
@@ -108,7 +104,7 @@ export default new Router({
         },
         {
           name: 'cadastro',
-          path: 'cadastro',
+          path: 'clientes/cadastro',
           component: Cadastro,
           beforeEnter: ifAuthenticated
         },
@@ -116,6 +112,27 @@ export default new Router({
           name: 'Editar',
           path: 'clientes/:id/edit',
           component: Update,
+          beforeEnter: ifAuthenticated
+        },
+        {
+          name: 'Usuario',
+          path: '/usuario',
+          component: PerfilUsuario
+        },
+        {
+          name: 'cadastro.usuario',
+          path: '/usuarios/cadastro',
+          component: CadastroUsuario
+        },
+        {
+          name: 'Usuarios',
+          path: '/usuarios',
+          component: ListagemUsuarios
+        },
+        {
+          name: 'editar.usuario',
+          path: 'usuarios/:id/edit',
+          component: EditarUsuario,
           beforeEnter: ifAuthenticated
         },
       ],

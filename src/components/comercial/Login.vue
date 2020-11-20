@@ -5,6 +5,17 @@
       <h3 class="pa-4">Login</h3>
       <!-- Login Form -->
       <form @submit.prevent="login">
+
+        <div v-for="error in errors">
+          <base-material-alert
+            color="error"
+            dark
+            dismissible
+          >
+            <span>{{ error.fieldName }}</span> — {{ error.message }}"
+          </base-material-alert>
+        </div>
+
         <input type="text" id="email" class="fadeIn second" name="email" placeholder="email" v-model="cliente.email">
         <input type="text" id="senha" class="fadeIn third" name="senha" placeholder="senha" v-model="cliente.senha">
         <input type="submit" class="fadeIn fourth" value="Log In">
@@ -25,6 +36,7 @@ export default {
 name: "Login",
   data () {
     return {
+      errors: [],
       cliente: {
         email: "",
         senha: ""
@@ -37,6 +49,10 @@ name: "Login",
 
       this.$store.dispatch('AUTH_REQUEST', this.cliente).then(() => {
         this.$router.push('/')
+      })
+      .catch((error)=>{
+        console.log(error)
+        this.errors.push({message: error.response.data.message, field: error.response.data.error})
       })
     }
   }
