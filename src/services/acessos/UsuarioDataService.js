@@ -30,6 +30,14 @@ class UsuarioDataService{
     return Axios.get(`http://localhost:8080/usuarios/${id}`)
   }
 
+  findPermissoes(){
+    return Axios.get('http://localhost:8080/usuarios/permissoes')
+  }
+
+  findPerfis(){
+    return Axios.get('http://localhost:8080/usuarios/perfis')
+  }
+
 }
 
 export default new UsuarioDataService()

@@ -85,6 +85,15 @@
                       />
                     </v-col>
 
+                    <v-col cols="12">
+                      <v-combobox
+                        v-model="perfisSelecionados"
+                        :items="todosPerfisDescricao"
+                        :label="$t('Perfis_do_usuario')"
+                        multiple
+                        chips
+                      ></v-combobox>
+                    </v-col>
 
                   </v-row>
                 </base-material-card>
@@ -100,7 +109,7 @@
                   class="mr-0"
                   type="submit"
                 >
-                  Enviar
+                  {{ $t('Enviar') }}
                 </v-btn>
               </v-col>
             </v-row>
@@ -125,11 +134,15 @@ export default {
       recurso: {
         email: '',
       },
-      errors: []
+      errors: [],
+      todosPerfisDescricao: [],
+      perfisSelecionados:[],
+      todosPerfis: [],
     }
   },
   methods: {
     submitForm(event) {
+      this.ConvertePerfis();
       DataService.update(this.recurso)
         .then((response) => {
           this.errors = [];
@@ -149,16 +162,56 @@ export default {
       DataService.find(this.$route.params.id)
         .then((response)=>{
           this.recurso = response.data
+          const perfis= response.data.perfis
+
+          perfis.forEach((value)=> {
+            this.perfisSelecionados.push(value.descricao)
+          })
+
         })
         .catch(error => {
           window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
           console.log(error)
           this.errors.push({field: 'ID', message: 'Usuário não encontrado'})
         })
+    },
+
+    findPerfis(){
+
+      DataService.findPerfis().then((response)=>{
+        //Pego so as descrições de cada permissão
+        //Ao enviar form envia os obj perfil que tem descrição entre as selecionadas
+        const perfis = response.data
+        this.todosPerfis = response.data;
+
+        perfis.forEach((value)=> {
+          this.todosPerfisDescricao.push(value.descricao)
+        })
+
+      })
+        .catch(error => {
+          window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+          console.log(error)
+
+        })
+    },
+
+    ConvertePerfis(){
+
+      this.todosPerfis.forEach((perfil => {
+        this.todosPerfisDescricao.forEach((descricao) => {
+
+          if (descricao === perfil.descricao){
+            this.recurso.perfis.push(perfil)
+          }
+        })
+      }))
+
     }
   },
   mounted() {
     this.getRecurso()
+    this.findPerfis()
   }
 
 }

@@ -58,5 +58,15 @@
   "Editar": "Editar",
   "fazer_mais": "Fazer mais alguma mudança ?",
   "nao": "Não",
-  "sim": "Sim"
+  "sim": "Sim",
+  "senha":  "senha",
+  "senhas_nao_conferem": "Senhas não conferem",
+  "cadastrar_novo_usuario?": "Cadastrar novo usuário ?",
+  "cadastrado_sucesso": "Cadastrado com sucesso",
+  "Enviar": "Enviar",
+  "confirme_a_senha": "Confirme a senha",
+  "Nome": "Nome",
+  "Dados_do_usuario": "Dados do usuário",
+  "Perfis_do_usuario": "Perfis do usuário"
+
 }

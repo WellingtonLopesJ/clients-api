@@ -131,7 +131,7 @@ export default new Router({
         },
         {
           name: 'editar.usuario',
-          path: 'usuarios/:id/edit',
+          path: 'usuarios/:id/editar',
           component: EditarUsuario,
           beforeEnter: ifAuthenticated
         },
