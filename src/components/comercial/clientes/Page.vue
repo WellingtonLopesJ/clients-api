@@ -123,7 +123,7 @@ export default {
       clientes: [],
       page: 1,
       totalPages: 0,
-      pageSize: 16,
+      pageSize: 24,
       pageSizes: [8, 16, 24],
       orderBy: null,
       directions: [

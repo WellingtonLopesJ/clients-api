@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from "@/components/comercial/Login";
+import Login from "@/components/Login";
 
 
 import store from './store'
-import ClientesPage from "@/components/comercial/ClientesPage";
-import Cadastro from "@/components/comercial/Cadastro";
-import Update from "@/components/comercial/Update";
+import ClientesPage from "@/components/comercial/clientes/Page";
+import Cadastro from "@/components/comercial/clientes/Cadastro";
+import Update from "@/components/comercial/clientes/Update";
 import CadastroUsuario from "@/components/acessos/Usuarios/CadastroUsuario";
 import PerfilUsuario from "@/components/acessos/Usuarios/PerfilUsuario";
 import ListagemUsuarios from "@/components/acessos/Usuarios/ListagemUsuarios";
@@ -117,21 +117,24 @@ export default new Router({
         {
           name: 'Usuario',
           path: '/usuario',
-          component: PerfilUsuario
+          component: PerfilUsuario,
+          beforeEnter: ifAuthenticated
         },
         {
           name: 'cadastro.usuario',
           path: '/usuarios/cadastro',
-          component: CadastroUsuario
+          component: CadastroUsuario,
+          beforeEnter: ifAuthenticated
         },
         {
           name: 'Usuarios',
           path: '/usuarios',
-          component: ListagemUsuarios
+          component: ListagemUsuarios,
+          beforeEnter: ifAuthenticated
         },
         {
           name: 'editar.usuario',
-          path: 'usuarios/:id/editar',
+          path: 'usuarios/:id/editar s',
           component: EditarUsuario,
           beforeEnter: ifAuthenticated
         },

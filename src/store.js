@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from "axios";
+import router from "@/router";
 
 Vue.use(Vuex)
 
@@ -84,8 +85,8 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         localStorage.removeItem('user-token') // clear your user's token from localstorage
         delete Axios.defaults.headers.common['Authorization']
-        this.$router.push('/login')
         resolve()
+        router.push('/login')
       })
 
     },
